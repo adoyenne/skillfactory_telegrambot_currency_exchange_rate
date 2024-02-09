@@ -45,8 +45,16 @@ def handle_text(message):
         parts = message.text.split()
         base_currency, quote_currency, amount = parts[0].lower(), parts[1].lower(), float(parts[2])
 
-        if base_currency not in keys or quote_currency not in keys:
-            bot.send_message(message.chat.id, " 🤔 Одна или обе валюты не поддерживаются. Попробуйте ввести снова 😇!")
+        if base_currency not in keys:
+            bot.send_message(message.chat.id, f"🤔 Валюта {base_currency} введена неверно или не поддерживается. Попробуйте ввести снова 😇!")
+            return
+        elif quote_currency not in keys:
+            bot.send_message(message.chat.id,
+                             f"🤔 Валюта {quote_currency} введена неверно или не поддерживается. Попробуйте ввести снова 😇!")
+            return
+        elif base_currency == quote_currency:
+            bot.send_message(message.chat.id,
+                             "🤔 Пожалуйста, убедитесь, что вы не ввели одну и ту же валюту в оба поля. Попробуйте снова 😇!")
             return
 
         converted_amount = CurrencyConverter.get_price(keys[base_currency], keys[quote_currency], amount)
