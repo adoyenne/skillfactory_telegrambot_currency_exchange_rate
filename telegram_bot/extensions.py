@@ -9,7 +9,6 @@ class CurrencyConverter:
     @staticmethod
     def get_price(base, quote, amount):
         # Определяем URL API для получения курса валют
-        print(base,quote)
         url = f'https://openexchangerates.org/api/latest.json?app_id=5a481dd660b64a9a90e65e141c4f6063&base={base}&symbols={quote}'
         try:
             # Отправляем запрос к API
